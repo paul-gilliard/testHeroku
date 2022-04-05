@@ -13,9 +13,9 @@ class CreateDBUserModel
          $prefixDatabase = $user->getUserIdentifier();
 
         //Les trois lignes ci-dessous seront à changer en prod.
-        $host    = "127.0.0.1:3307";
-        $userDB    = "root";
-        $pass    = "";
+        $host    = "wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+        $userDB    = "w89mqzrcb431vmpe";
+        $pass    = "r12jp4jr6b5e0igy";
     
         //Créations BDD "userID+NameDatabase"
         $pdo = new \PDO("mysql:host=$host", $userDB, $pass);
@@ -48,9 +48,9 @@ class CreateDBUserModel
     public function connectionReferenceCookingDatabase(){ // Inutile à l'heure actuelle
 
         //Les trois lignes ci-dessous seront à changer en prod.
-        $host    = "127.0.0.1:3307";
-        $userDB    = "root";
-        $pass    = "";
+        $host    = "wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+        $userDB    = "w89mqzrcb431vmpe";
+        $pass    = "r12jp4jr6b5e0igy";
         $dbname = "cookingreference";
 
         $pdo = new \PDO("mysql:host=$host;dbname=$dbname", $userDB, $pass);
@@ -60,9 +60,9 @@ class CreateDBUserModel
     public function connectionUserCookingDatabase(User $user){
 
         //Les trois lignes ci-dessous seront à changer en prod.
-        $host    = "127.0.0.1:3307";
-        $userDB    = "root";
-        $pass    = "";
+        $host    = "wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+        $userDB    = "w89mqzrcb431vmpe";
+        $pass    = "r12jp4jr6b5e0igy";
         $dbname = $user->getCookingDatabaseName();
 
         $pdo = new \PDO("mysql:host=$host;dbname=$dbname", $userDB, $pass);
@@ -72,9 +72,9 @@ class CreateDBUserModel
     public function connectionUserMuseumDatabase(User $user){
 
         //Les trois lignes ci-dessous seront à changer en prod.
-        $host    = "127.0.0.1:3307";
-        $userDB    = "root";
-        $pass    = "";
+        $host    = "wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+        $userDB    = "w89mqzrcb431vmpe";
+        $pass    = "r12jp4jr6b5e0igy";
         $dbname = $user->getMuseumDatabaseName();
 
         $pdo = new \PDO("mysql:host=$host;dbname=$dbname", $userDB, $pass);
@@ -84,9 +84,9 @@ class CreateDBUserModel
     public function connectionUserBusinessDatabase(User $user){
 
         //Les trois lignes ci-dessous seront à changer en prod.
-        $host    = "127.0.0.1:3307";
-        $userDB    = "root";
-        $pass    = "";
+        $host    = "wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+        $userDB    = "w89mqzrcb431vmpe";
+        $pass    = "r12jp4jr6b5e0igy";
         $dbname = $user->getCompagnyDatabseName();
 
         $pdo = new \PDO("mysql:host=$host;dbname=$dbname", $userDB, $pass);

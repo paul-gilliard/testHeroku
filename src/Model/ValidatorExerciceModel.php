@@ -68,9 +68,9 @@ class ValidatorExerciceModel
 
         
         //Les trois lignes ci-dessous seront à changer en prod.
-        $host    = "127.0.0.1:3307";
-        $userDB    = "root";
-        $pass    = "";
+        $host    = "wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+        $userDB    = "w89mqzrcb431vmpe";
+        $pass    = "r12jp4jr6b5e0igy";
     
         // //Créations BDD "userID+NameDatabase"
         // $pdo = new \PDO("mysql:host=$host", $userDB, $pass);
@@ -96,9 +96,9 @@ class ValidatorExerciceModel
         // dd($inputUserResponse);
         // dd($databaseToIt);
         //Les trois lignes ci-dessous seront à changer en prod.
-        $host    = "127.0.0.1:3307";
-        $userDB    = "root";
-        $pass    = "";
+        $host    = "wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+        $userDB    = "w89mqzrcb431vmpe";
+        $pass    = "r12jp4jr6b5e0igy";
         $dbname = $databaseToIt;
 
         $pdo = new \PDO("mysql:host=$host;dbname=$dbname", $userDB, $pass);
@@ -126,9 +126,9 @@ class ValidatorExerciceModel
         // dd($inputUserResponse);
         // dd($databaseToIt);
         //Les trois lignes ci-dessous seront à changer en prod.
-        $host    = "127.0.0.1:3307";
-        $userDB    = "root";
-        $pass    = "";
+        $host    = "wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+        $userDB    = "w89mqzrcb431vmpe";
+        $pass    = "r12jp4jr6b5e0igy";
         $dbname = $databaseToIt;
 
 
@@ -157,9 +157,9 @@ class ValidatorExerciceModel
         // dd($inputUserResponse);
         // dd($databaseToIt);
         //Les trois lignes ci-dessous seront à changer en prod.
-        $host    = "127.0.0.1:3307";
-        $userDB    = "root";
-        $pass    = "";
+        $host    = "wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+        $userDB    = "w89mqzrcb431vmpe";
+        $pass    = "r12jp4jr6b5e0igy";
         $dbname = $databaseToIt;
 
 

@@ -56,10 +56,10 @@ class DashboardController extends AbstractDashboardController
     public function resetDatabaseUsers(EntityManagerInterface $doctrine){
 
         $DB = new CreateDBUserModel();
-        $host    = "127.0.0.1:3307";
-        $userDB    = "root";
-        $pass    = "";
-        $dbname = "bdd_principale";
+        $host    = "wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+        $userDB    = "w89mqzrcb431vmpe";
+        $pass    = "r12jp4jr6b5e0igy";
+        $dbname = "drmnh6tfqulcodjn";
 
         $pdo = new \PDO("mysql:host=$host;dbname=$dbname", $userDB, $pass);
         $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -103,10 +103,10 @@ class DashboardController extends AbstractDashboardController
     public function ViderTableValidationCooking(EntityManagerInterface $doctrine){
 
         $DB = new CreateDBUserModel();
-        $host    = "127.0.0.1:3307";
-        $userDB    = "root";
-        $pass    = "";
-        $dbname = "bdd_principale";
+        $host    = "wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+        $userDB    = "w89mqzrcb431vmpe";
+        $pass    = "r12jp4jr6b5e0igy";
+        $dbname = "drmnh6tfqulcodjn";
 
         $pdo = new \PDO("mysql:host=$host;dbname=$dbname", $userDB, $pass);
         $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -125,10 +125,10 @@ class DashboardController extends AbstractDashboardController
     public function ViderTableValidationMuseum(EntityManagerInterface $doctrine){
 
         $DB = new CreateDBUserModel();
-        $host    = "127.0.0.1:3307";
-        $userDB    = "root";
-        $pass    = "";
-        $dbname = "bdd_principale";
+        $host    = "wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+        $userDB    = "w89mqzrcb431vmpe";
+        $pass    = "r12jp4jr6b5e0igy";
+        $dbname = "drmnh6tfqulcodjn";
 
         $pdo = new \PDO("mysql:host=$host;dbname=$dbname", $userDB, $pass);
         $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -147,10 +147,10 @@ class DashboardController extends AbstractDashboardController
     public function ViderTableValidation(EntityManagerInterface $doctrine){
 
         $DB = new CreateDBUserModel();
-        $host    = "127.0.0.1:3307";
-        $userDB    = "root";
-        $pass    = "";
-        $dbname = "bdd_principale";
+        $host    = "wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+        $userDB    = "w89mqzrcb431vmpe";
+        $pass    = "r12jp4jr6b5e0igy";
+        $dbname = "drmnh6tfqulcodjn";
 
         $pdo = new \PDO("mysql:host=$host;dbname=$dbname", $userDB, $pass);
         $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
