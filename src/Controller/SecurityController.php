@@ -61,9 +61,9 @@ class SecurityController extends AbstractController
             $manager->flush();
             $mailer->sendEmail($email,$user->getToken());
             $userId = $user->getId();
-            $user->setCookingDatabaseName($userId."cookingdatabase");
-            $user->setMuseumDatabaseName($userId."museumdatabase");
-            $user->setCompagnyDatabseName($userId."compagnydatabase");
+            // $user->setCookingDatabaseName($userId."cookingdatabase");
+            // $user->setMuseumDatabaseName($userId."museumdatabase");
+            // $user->setCompagnyDatabseName($userId."compagnydatabase");
             $manager->persist($user);
             $manager->flush();
 
