@@ -39,11 +39,11 @@ class HomeController extends AbstractController
      */
     public function redirection($lvl, RequestStack $requestStack)
     {
+        $session = $requestStack->getSession();
         $session->set('maGlobale',$lvl);
        return $this->index($requestStack);
 
 
-       $session = $requestStack->getSession();
        $session->set('numberCurrentQuestion',1);
         
     }
