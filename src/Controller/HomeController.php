@@ -12,21 +12,21 @@ class HomeController extends AbstractController
 {
    
     // Fonction servant à afficher la homepage
-    // #[Route('/{lvl}', name: 'home')]
-     /**
-     * @Route("/home/{lvl}", name="home")
-     */
-    public function index($lvl=null,RequestStack $requestStack): Response
+    #[Route('/', name: 'home')]
+    public function index(RequestStack $requestStack): Response
     {
         // $session = new Session();
         $session = $requestStack->getSession();
+        
         $levelSelect = $lvl;
         
-        $session->set('maGlobale',$levelSelect);
-        
-        if($levelSelect==null){
+        if($session->isStarted() == false){
             $levelSelect="levelOne";
+            $session->set('maGlobale',$levelSelect);
+        } else {
+            $levelSelect = $session->get('maGlobale');
         }
+        
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'niveau'=>$levelSelect
@@ -39,7 +39,10 @@ class HomeController extends AbstractController
      */
     public function redirection($lvl, RequestStack $requestStack)
     {
-       return $this->index($lvl,$requestStack);
+        $session->set('maGlobale',$lvl);
+       return $this->index($requestStack);
+
+
        $session = $requestStack->getSession();
        $session->set('numberCurrentQuestion',1);
         
