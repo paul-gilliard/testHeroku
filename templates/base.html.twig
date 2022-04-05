@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+         <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+        {% block stylesheets %}{% endblock %}
+         {% if niveau is not defined  %}
+                    {% set niveau = "levelOne" %}
+                    {% endif %}
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ path('redirect',{'lvl': niveau }) }}"> <img src="{{ asset('images/logo_sql_paul_2.png') }}" style="width:5%;height:(%"/> <img src="{{ asset('images/texte_logo_2.png') }}" style="width:10%;height:10%;padding-left:10px"/> </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div style="float:right">
+                    <div class="collapse navbar-collapse" id="navbarColor01"  >
+                    <ul class="navbar-nav me-auto">
+                          <a class="nav-link" href="{{ path('choix_niveau') }}"><li class="nav-item">
+                      <h2 style="margin-right : 40px">Exercice</h2>
+                        </li></a>
+                         {% if not app.user %}
+                        <a class="nav-link" href="{{ path('login')}}"></li>
+                        
+                        <h2>Login</h2>
+                        </li></a>
+                        {% else %}
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ path('logout')}}"><h2>Logout</h2></a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    </div>
+                </div>
+            </div>
+            </nav>
+            {#{{ encore_entry_link_tags('app') }}#}
+        
+
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+    </body>
+</html>

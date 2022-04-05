@@ -1,0 +1,106 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block header %} <link rel="stylesheet" href="{{ asset('css/global.css') }}"> {% endblock %}
+
+
+{% block content_title %} Backoffice {% endblock %}
+
+{% block Content %}
+
+    {% block main %}
+
+
+<h1 style="margin-top:5%"> Présentation </h1>
+<div style="font-size: medium;"> Le backoffice de ce site d'apprentissage au SQL va permettre aux utilisateurs "administrateur" une multitude d'actions.
+Dans les onglets à gauche représentés par ce logo : <i class="menu-icon fa-fw fas fa-list"></i>" vous pourrez faire des modifications et des ajouts de questions dans les différents niveaux. <br>
+La rubrique "User" permettra de faire des modifications et de la lecture sur les données des utilisateurs du site.<br>
+De plus, vous pourrez aussi faire des modifications sur les images UML des niveaux, partie "UML" ci-dessous. <br>
+Et finalement, si votre souhait est de remanier en profondeur les bases de données, la partie "Modification de la base de données" vous décrira la démarche à suivre.</div>
+
+<h1 style="margin-top:5%"> Supression éléments dans <i class="menu-icon fa-fw fas fa-list"></i> </h1>
+<div style="font-size: medium;"> <b>Avertissement concernant la suppression de question :</b><br>
+Si une question est validée par un utilisateur, elle ne peut pas être supprimée avant de disparaître d'une table associant nos utilisateurs avec leurs questions validées.<br>
+De ce fait, si vous voulez supprimer une question déjà confirmée chez un utilisateur, vous pouvez cliquer sur un de ces boutons (selon la question posant un problème) pour vider la table associative souhaitée..
+<br> <h4><b> Cette action supprimera toutes les avancées de tous les utilisateurs, soyez sûr de votre action. </b></h4> </div>
+<br> <a href="{{ path('ViderTableValidationCooking')}}" class="bouton_reset_users" onclick="return confirm('Sûr de vouloir vider la table associative Cooking ?')" > Vider la table Cooking </a>
+<br><br> <a href="{{ path('ViderTableValidationMuseum')}}" class="bouton_reset_users" onclick="return confirm('Sûr de vouloir vider la table associative Museum ?')" > Vider la table Museum</a>
+<br><br> <a href="{{ path('ViderTableValidationCompagny')}}" class="bouton_reset_users" onclick="return confirm('Sûr de vouloir vider la table associative Compagny ?')" > Vider la table Compagny </a>
+
+
+<h1 style="margin-top:5%"> UML </h1>
+<div style="font-size: medium;"><form action="{{ path('uploadCooking')}}" method="post" enctype="multipart/form-data">
+      <label for="uploadCooking">Image UML BDD Cooking</label>
+      <input type="file" name="uploadCooking" />
+      <button type="submit">Upload</button>
+    </form>
+    <br>
+    <form action="{{ path('uploadMuseum')}}" method="post" enctype="multipart/form-data">
+      <label for="uploadMuseum">Image UML BDD Museum</label>
+      <input type="file" name="uploadMuseum" />
+      <button type="submit">Upload</button>
+    </form>
+    <br>
+    <form action="{{ path('uploadCompagny')}}" method="post" enctype="multipart/form-data">
+      <label for="uploadCompagny">Image UML BDD Compagny</label>
+      <input type="file" name="uploadCompagny" />
+      <button type="submit">Upload</button>
+    </form>
+</div>
+
+<h1 style="margin-top:5%"> Modification de la base de données </h1>
+<div style="font-size: medium;">Si le but des modifications des bases de données de travail consistent uniquement à changer les enregistrements présents dans ces dernières, veuillez utiliser les onglets présents en haut à gauche.
+
+<br>Toutefois, si le but est d'ajouter des champs dans les tables, ou même d'ajouter des tables dans les bases de données de références, je vous invite à suivre cette démarche :
+
+<h2 style="margin-top:3%"> Ajouter une table dans une base de données déjà existante </h2>
+<li>Accédez à phpMyAdmin en cliquant sur le lien suivant : <a href="#" class="bouton_reset_users" >  Acces phpMyAdmin </a></li>
+<li> Les bases de données dites "de référence" sont les bases de données modèles pour les bases de données des utilisateurs, c'est donc celle que l'on va modifier. </li><br>
+<img src="{{ asset('backoffice/accès_bdd_reference.png')  }}" class="imgTuto"/>
+<br><li>En cliquant sur la base de référence que vous souhaitez modifier, vous pourrez inscrire le nom de la table et la créer.</li><br>
+<img src="{{ asset('backoffice/ajout_table.png')  }}" class="imgTuto"/>
+<br><li>Vous accéderez à la configuration de vos colonnes de votre nouvelle table, une fois terminé, cliquez sur "enregistrer".</li><br>
+<img src="{{ asset('backoffice/config_ajout_table.png')  }}" class="imgTuto"/>
+<br><li>Vous aurez ensuite 2 choix pour y insérer des lignes, soit par le menu "insérer".</li><br>
+<img src="{{ asset('backoffice/insertion_insérer.png')  }}" class="imgTuto"/>
+<li>Soit par le menu "SQL" en y écrivant les inserts en langages SQL.</li><br>
+<img src="{{ asset('backoffice/insertion_sql.png')  }}" class="imgTuto"/>
+
+<h2 style="margin-top:3%"> Vider l'intégralité d'une base de référence et y remettre ce que vous voulez. </h2>
+<br><li>Dans la base de votre choix, sélectionnez toutes les tables et videz-les de cette manière, un message de confirmation vous sera proposé, si c'est bien ce que vous voulez faire, acceptez le.<br>
+Si votre souhait est de supprimer toutes les tables pour toutes les recréer, vous pouvez sélectionner le bouton "supprimer".</li>
+<img src="{{ asset('backoffice/tout_vider.png')  }}" class="imgTuto"/>
+<br><li>L'insertion des nouvelles données peut être fait avec l'interface de phpMyAdmin ou en SQL comme dans la rubrique "Ajouter une table dans une base de données déjà existante".<br>
+Mais si vous avez préparé un fichier SQL contenant les inserts nécessaires (et même la création des tables dans le cas où vous avez cliqué sur "supprimer" à l'étape précédente), nous pouvons l'importer dans l'onglet "importer" en sélectionnant vos imports SQL sur votre machine et en exécutant le fichier ainsi sélectionné. </li>
+<img src="{{ asset('backoffice/importation_fichier_sql.png')  }}" class="imgTuto"/>
+</div>
+
+
+<h2 style="margin-top:3%"> Après toute modification </h2>
+<div style="font-size: medium;">Après toute modification des bases de données de références, il faudra insérer votre nouvelle base de données au format sql ci dessous (fichier générable dans l'onglet "exporter" de phpMyAdmin en cliquant sur "Exécuter"), puis cliquer sur le bouton "reset users databases" pour que celles-ci soient supprimées et re-cloner à partir de vos nouvelles bases de données de référence.
+</div><br>
+
+<h3 style="margin-top:5%"> Insertion fichier d'une nouvelle base de donénes au format SQL</h3>
+<div style="font-size: medium;"><form action="{{ path('uploadSqlCooking')}}" method="post" enctype="multipart/form-data">
+      <label for="uploadSqlCooking">fichier sql base de données de référence Cooking</label>
+      <input type="file" name="uploadSqlCooking" />
+      <button type="submit">Upload</button>
+    </form>
+    <br>
+    <form action="{{ path('uploadSqlMuseum')}}" method="post" enctype="multipart/form-data">
+      <label for="uploadSqlMuseum">fichier sql base de données de référence Museum</label>
+      <input type="file" name="uploadSqlMuseum" />
+      <button type="submit">Upload</button>
+    </form>
+    <br>
+    <form action="{{ path('uploadSqlCompagny')}}" method="post" enctype="multipart/form-data">
+      <label for="uploadSqlCompagny">fichier sql base de données de référence Compagny</label>
+      <input type="file" name="uploadSqlCompagny" />
+      <button type="submit">Upload</button>
+    </form>
+</div>
+
+ <a href="{{ path('resetDatabaseUsers')}}" class="bouton_reset_users" onclick="return confirm('S$ur de vouloir rénitialiser les bases de données utilisateurs ?')" >  Reset users databases </a><br>
+
+
+    {% endblock %}
+{% endblock %}

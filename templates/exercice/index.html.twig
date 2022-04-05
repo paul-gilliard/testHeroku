@@ -1,0 +1,283 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} 👨‍💻 Exercice{% endblock %}
+
+{% block body %}
+ <link rel="stylesheet" href="{{ asset('css/global.css') }}">
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+{# Gestion accès #}
+<br>
+    <div class="levelActuelExercice">
+        {% if niveau == "levelOne" %}
+        <img src="{{ asset('images/cupActu.jpeg') }}" class="imgLevelActuelExercice"/>
+        {% elseif niveau == "levelTwo" %}
+        <img src="{{ asset('images/buste.jpeg') }}" class="imgLevelActuelExercice"/>
+        {% else %}
+        <img src="{{ asset('images/office.jpeg') }}" class="imgLevelActuelExercice"/>
+        {% endif %}
+    </div>
+    <div class="emplacement_difficulte">
+    {% if niveauValide == null and (niveau == "levelTwo" or niveau =="levelThree" ) %} <a href="{{ path('redirect',{'lvl':'levelOne'}) }}"><div class="alert alert-dismissible alert-warning"><h4 class="alert-heading">Attention!</h4><p class="mb-0" style="font-size:large">Tu n'as pas validé le niveau précédent, tu dois atteindre le score de 100% sur le niveau Cooking pour accéder à cette page d'exercice.  </p></div> {% set Acces = 0 %} </h1></a> {#Accès niveau  2 ou 3 sans validé 1#}
+    {% elseif (niveauValide == 1 or niveauValide == null)  and (niveau == "levelThree" ) %}  <a href="{{ path('redirect',{'lvl':'levelTwo'}) }}"><div class="alert alert-dismissible alert-warning"><h4 class="alert-heading">Attention!</h4><p class="mb-0" style="font-size:large">Tu n'as pas validé le niveau précédent, tu dois atteindre le score de 100% sur le niveau Cooking et Museum pour accéder à cette page d'exercice.  </p></div>  {% set Acces = 0 %}</a>
+    {% else %} {% set Acces = 1 %}
+    {% endif %} </h1>{# Accès niveau  3 sans avoir validé 1 ni 2 #}
+
+    {% if linkNextlevel == true %}
+    <div class="alert alert-dismissible alert-success">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <strong>Bien joué !</strong> Tu as validé le niveau ! <a href="{{ path('choix_niveau') }}" class="alert-link">
+      Tu peux suivre ce lien pour sélectionner le niveau suivant.</a>
+    </div>
+    {% endif %}
+
+       {% if Acces == 1 %}  <br><h1>Difficulté {{difficulte}} </h1> {% endif %}
+        <div id="nbWrondResponse"  style="display:none">  {{ numberWrongResponse }} </div>
+        
+
+    </div>
+
+<div class="emplacement_input_exercice">
+    <h3>Question {{numberCurrentQuestion  }}  {% if isCurrentQuestionValidate == true %}✅ {% else %} ❌ {% endif %} </h3>
+    {# <form> #}
+    {{form_start(form)}}
+        <fieldset>
+            <div class="form-group">
+            {# {{ form_row(form.inputQuestion)}} #}
+            {{ form_widget(form.inputQuestion, {'attr': {'class': 'form-control','id':'exampleTextarea','rows': '6','style':'font-size:x-large'}} ) }}
+            {# <div id="board" class="original" contenteditable="true" spellcheck="false"></div>
+            <div id="dummy" class="original"></div> #}
+          {# </div>
+            {# <textarea class="form-control" id="exampleTextarea" rows="5"></textarea> #}
+            {# </div> #}
+
+            {% if Acces == 0 %} 
+            <button type="submit" class="btn btn-primary" onclick="setCookie('numberWrongResponse',{{numberWrongResponse}},1)" style="margin-top:1%" disabled >Envoyer</button>
+            {% else %}
+            <button type="submit" class="btn btn-primary" onclick="setCookie('numberWrongResponse',{{numberWrongResponse}},1)" style="margin-top:1%" >Envoyer</button>
+            {% endif %}
+            <input id="helpButton" type="button" class="btn btn-primary"  onclick="showhelp()" style="display:none;margin-top:1%" value="Réponse">
+            {# <button id="helpButton" class="btn btn-primary" onclick="showhelp()" style="display:none" > Réponse </button> #}
+        </fieldset>
+    {{form_end(form)}}
+    {# </form> #}
+    <div class="emplacement_enonce">
+    <h3>{{currentQuestion.getIntituleQuestion}}</h3>
+    </div>
+</div>
+
+    <div class="emplacement_UML">
+      <div class="accordion" id="myAccordion">
+        <div class="panel">
+          <h2 class="accordion-header" id="headingOne">
+        {# <button type="button" class="accordion-button collapsed" data-toggle="collapse" data-target="#collapsible-1" data-parent="#myAccordion"> #}
+         {% if niveau == "levelOne" %}
+          <img src="{{ asset('database/cookingJPG.jpg') }}" class="imgUML"/>
+          {% elseif niveau == "levelTwo" %}
+          <img src="{{ asset('database/museumJPG.jpg') }}" class="imgUML"/>
+          {% else %}
+          <img src="{{ asset('database/compagnyJPG.jpg') }}" class="imgUML"/>
+          {% endif %}
+        {# </button> #}
+      </h2>
+       {# <div id="collapsible-1" class="collapse"> #}
+        <div class="accordion-body">
+          <strong>Contexte de l'UML.</strong> 
+          {% if niveau == "levelOne" %}
+        Cette base de données s'inspire du site web Marmiton, c'est-à-dire qu’il existe des membres (Members) qui peuvent mettre en ligne des recettes (Receip), chacun peut liker (Likes) une recette ou l’ajouter dans sa liste de favoris (Favorites).
+Les recettes peuvent également être organisées par pays. 
+        {% elseif niveau == "levelTwo" %}
+        C’est une base de données qui regroupe plusieurs musées (Museum). Dans chaque musée on trouve plusieurs expositions (Exhibit) qui sont composées de plusieurs œuvres (Piece_of_art).
+Les œuvres sont réalisées par des artistes (Artists) qui ont des mentors.
+Grâce à la table Assigned on peut assigner une œuvre à une exposition.
+        {% else %}
+        On se situe dans une entreprise qui commercialise des produits dans le domaine de la jardinerie, l’entreprise possède plusieurs bureaux/magasins (Offices).
+Comme dans toute entreprise, il y a des employés (Employees) et des clients (Clients).
+Concernant les commandes, on trouve la commande général (Orders) avec la date, le code, le client, le pays… mais on a aussi la commande en détail (Order_detail) avec la quantité de chaque produit (Products), il y a différentes gamme de produits (Product_ranges).
+Enfin avec cette base de données on peut gérer les paiements (Payments).
+        {% endif %}
+        </div>
+      {# </div> #}
+    </div>
+    </div> 
+    </div>
+
+
+    <div class="emplacement_barre_progression">
+        <h3>Avancement : {{ ((countValidatedQuestion / countQuestion)*100)|round }} %</h3>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{ (countValidatedQuestion / countQuestion)*100 }}%;"></div>
+        </div>
+    </div>
+
+    <div class="emplacement_next_previous">
+        <h1><a href="{{ path('précédent')}}" class="{{ disablePrecedent }}"> Précédent  < </a>  {{numberCurrentQuestion  }} / {{countQuestion}}   <a href="{{ path('exerciceChange',{change:'suivant'})}}" class="{{ disableSuivant }}" > >  Suivant </a> <h1>
+    </div>
+
+    {% if popUp != null  %}
+        <script>
+            $(document).ready(function(){
+                $("#exampleModal").modal('show');
+            });
+
+        </script>
+    {% endif %}
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Correcteur</h5>
+        {#<button type="button" class="btn-close ms-2 mb-1" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> #}
+      </div>
+      <div class="modal-body">
+      
+       {% if popUp == "goodAswer" %}
+        Bonne réponse ! Passe à la question suivante.
+        {% elseif popUp is iterable %}
+        Mauvaise réponse, essaye encore ! 
+        {% elseif popUp == "goodAswerButAlreadyValidate" %}
+       Bonne réponse, déjà validé. 
+       {% else %}
+       {{ popUp }}
+        {% endif %}
+      </div>
+        {% if popUp == "goodAswer" %}
+        <div class="modal-footer">
+        <input type="submit" class="btn btn-secondary" data-dismiss="modal" onclick="GoodAnswernumberWrongResponseToZero()" value="Fermer">
+      </div>
+        {% elseif popUp is iterable %}
+        <div class="modal-footer">
+        <input type="submit" class="btn btn-secondary" data-dismiss="modal"  onclick="oneMoreWrongResponse()"  value="Fermer">
+      </div>
+        {% elseif popUp == "goodAswerButAlreadyValidate" %}
+       <div class="modal-footer">
+        <input type="submit" class="btn btn-secondary" id="yolo" data-dismiss="modal" onclick="numberWrongResponseToZero"   value="Fermer">
+      </div>
+        {% endif %}
+      
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Réponse </h5>
+        {#<button type="button" class="btn-close ms-2 mb-1" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> #}
+      </div>
+      <div class="modal-body">
+      {% if popUp is iterable %}
+      {{ popUp[1]}}
+      {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+
+
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+    
+function numberWrongResponseToZero() {
+  setCookie("numberWrongResponse",0,1);
+  document.getElementById("nbWrondResponse").innerHTML = 0;
+}
+function GoodAnswernumberWrongResponseToZero() {
+    console.log("GoodAnswernumberWrongResponseToZero");
+  setCookie("numberWrongResponse",0,1);
+  window.location.href='/suivant';
+  document.getElementById("nbWrondResponse").innerHTML = 0;
+}
+function oneMoreWrongResponse() {
+    console.log("wrongAnswer");
+   var numberWrongResponse = getCookie("numberWrongResponse");
+   numberWrongResponse = parseInt(numberWrongResponse);
+   numberWrongResponse = numberWrongResponse+1;
+   setCookie("numberWrongResponse",numberWrongResponse,1);
+  document.getElementById("nbWrondResponse").innerHTML = numberWrongResponse;
+  console.log("callHelp");
+  helpButton(numberWrongResponse);
+}
+
+function helpButton(numberWrongResponse){
+    if (numberWrongResponse >= 3){
+        document.getElementById("helpButton").style.display = 'block';
+        document.getElementById("helpButton").style.float = 'right';
+    }
+}
+
+function showhelp(){
+
+    $("#helpModal").modal('show');
+}
+
+
+var highLightedWord = ["select","insert","update","from","where"];
+var regexFromMyArray = new RegExp(highLightedWord.join("|"), 'ig');
+$('#board').keyup(function(event){
+ document.getElementById('dummy').innerHTML = $('#board').html().replace(regexFromMyArray,function(str){
+ return '<span class="highlighted">'+str+'</span>'
+ })
+ console.log(document.getElementById('board').firstChild.data);
+document.getElementById("input_question_inputQuestion").value = document.getElementById('board').firstChild.data;
+})
+var target = $("#dummy");
+  $("#board").scroll(function() {
+    target.prop("scrollTop", this.scrollTop)
+          .prop("scrollLeft", this.scrollLeft);
+  });
+
+  {# $("#oneMoreWrongResponse").click(oneMoreWrongResponse(numberWrongResponse));
+    console.log(numberWrongResponse);
+  function oneMoreWrongResponse()
+  {
+     if ( numberWrongResponse == null) {
+         console.log("passage");
+         var numberWrongResponse = 0
+     }
+     console.log(numberWrongResponse);
+        $("#nbWrondResponse").html(numberWrongResponse);
+        
+  }; #}
+
+  {# function GoCooking(){
+
+    console.log(sessionStorage.getItem("maGlobale"));
+    sessionStorage.setItem("maGlobale","levelOne");
+    console.log(sessionStorage.getItem("maGlobale"));
+} #}
+
+</script>
+{% endblock %}

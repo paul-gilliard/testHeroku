@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} 💻 Apprends le SQL{% endblock %}
+
+
+{% block body %}
+
+ <link rel="stylesheet" href="{{ asset('css/global.css') }}">
+ 
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+<div class="left_container">
+<center>
+<div class="card border-primary mb-3" style="max-width: 30rem;">
+  <div class="card-body">
+    <h1 class="card-title">Bienvenue sur notre site {% if  app.user %} {{app.user.username}} {% endif %}! </h1>
+    <p class="card-text"> <h4>Apprends le SQL avec nos exercices répartis sous 3 niveaux de difficulté à themes :</h4> </p>
+  </div>
+</div>
+</center>
+
+<div class="lvl_on_left_container">
+       {% if not is_granted('ROLE_ADMIN') %}<a href="{{ path('choix_niveau') }}">{% endif %} <div class="card border-secondary mb-3" style="max-width: 20rem;margin:1%">
+        <div class="card-body">
+            <h4 class="card-title">Niveau 1 : Recettes </h4>
+        </div> 
+        </div>{% if not is_granted('ROLE_ADMIN') %}</a>{% endif %}
+       {% if not is_granted('ROLE_ADMIN') %}<a href="{{ path('choix_niveau') }}">{% endif %} <div class="card border-warning mb-3" style="max-width: 20rem;margin:1%">
+        <div class="card-body">
+            <h4 class="card-title">Niveau 2 : Musée </h4>
+        </div>
+        </div> {% if not is_granted('ROLE_ADMIN') %}</a>{% endif %}
+       {% if not is_granted('ROLE_ADMIN') %}<a href="{{ path('choix_niveau') }}">{% endif %} <div class="card border-dark mb-3" style="max-width: 20rem;margin:1%">
+        <div class="card-body">
+            <h4 class="card-title">Niveau 3 : Business  </h4>
+        </div>
+</div>{% if not is_granted('ROLE_ADMIN') %}</a>{% endif %}
+
+</div>
+<center>
+<div class="card border-success mb-3" style="max-width: 20rem;">
+ {% if not is_granted('ROLE_ADMIN') %}<a href="{{ path('exercice')}}">{% endif %} <div class="card-body">
+    <h2 class="card-title">Lance-toi</h2>
+    <p class="card-text"> Et surveille ta progression !</p>
+  </div>
+</div> {% if not is_granted('ROLE_ADMIN') %}</a>{% endif %}
+{% if not app.user %}
+
+
+<a href="{{ path('login')}}"> <div class="d-grid gap-2">
+  <button class="btn btn-lg btn-primary" type="button">Login</button>
+</div> </a> 
+{% endif %}
+</div>
+
+</center>
+
+
+<div class="middle_container">
+    <div class="levelActuel">
+    {% if is_granted('ROLE_ADMIN') %} <img src="{{ asset('images/admin.png') }}" class="imgLevelActuel"/> 
+    {% else %}
+        {% if niveau == "levelOne" %}
+        <a href="{{ path('choix_niveau') }}"> <img src="{{ asset('images/275968338_340399001375151_3000059774535132445_n.jpg') }}" class="imgLevelActuel"/> </a>
+        {% elseif niveau == "levelTwo" %}
+        <a href="{{ path('choix_niveau') }}"> <img src="{{ asset('images/275937426_1097189217793245_8687848605460215120_n.jpg') }}" class="imgLevelActuel"/> </a>
+        {% else %}
+        <a href="{{ path('choix_niveau') }}"> <img src="{{ asset('images/275315424_1132670804255504_4374269131640730450_n.jpg') }}" class="imgLevelActuel"/> </a>
+        {% endif %}
+    {% endif %}
+    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('admin')}}"> <button type="button" class="btn btn-primary btn-lg" id="startbutton" >Admin Access</button> </a>
+    {% else %}
+    <a href="{{ path('exercice')}}"> <button type="button" class="btn btn-primary btn-lg" id="startbutton" >START</button> </a>
+    {% endif %}
+</div>
+
+
+{% endblock %}
