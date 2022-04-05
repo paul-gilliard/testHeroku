@@ -12,7 +12,10 @@ class HomeController extends AbstractController
 {
    
     // Fonction servant à afficher la homepage
-    #[Route('/', name: 'home')]
+    // #[Route('/{lvl}', name: 'home')]
+     /**
+     * @Route("/{lvl}", name="homed")
+     */
     public function index($lvl=null,RequestStack $requestStack): Response
     {
         // $session = new Session();
