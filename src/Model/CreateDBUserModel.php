@@ -3,22 +3,28 @@
 namespace App\Model;
 
 use App\Entity\User;
+use Doctrine\DBAL\Connection;
 
 class CreateDBUserModel
 {
-    public function createDatabaseAlLevel(User $user) {
+    public function createDatabaseAlLevel(User $user, Connection $connection) {
         // Cette function doit cloner les 3 BDD de références
         // Cette function doit être appeler lors de la création du compte
         // Elle stockera à l'indice de l'utilsiateur sa bdd
          $prefixDatabase = $user->getUserIdentifier();
 
+        
+
+         
         //Les trois lignes ci-dessous seront à changer en prod.
         $host    = "wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
         $userDB    = "w89mqzrcb431vmpe";
         $pass    = "r12jp4jr6b5e0igy";
     
         //Créations BDD "userID+NameDatabase"
+        // $pdo = new PDO('sqlite:database.sqlite');
         $pdo = new \PDO("mysql:host=$host", $userDB, $pass);
+        // dd($pdo);
         $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         $sql = "CREATE DATABASE ". $prefixDatabase."cookingdatabase";
         $pdo->exec($sql);
