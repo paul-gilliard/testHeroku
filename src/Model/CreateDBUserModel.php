@@ -7,7 +7,7 @@ use Doctrine\DBAL\Connection;
 
 class CreateDBUserModel
 {
-    public function createDatabaseAlLevel(User $user, Connection $connection) {
+    public function createDatabaseAlLevel(User $user) {
         // Cette function doit cloner les 3 BDD de références
         // Cette function doit être appeler lors de la création du compte
         // Elle stockera à l'indice de l'utilsiateur sa bdd
