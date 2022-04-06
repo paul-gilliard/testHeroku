@@ -16,9 +16,11 @@ class CreateDBUserModel
         $host    = "wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
         $userDB    = "w89mqzrcb431vmpe";
         $pass    = "r12jp4jr6b5e0igy";
+        $database = "drmnh6tfqulcodjn";
     
         //Créations BDD "userID+NameDatabase"
-        $pdo = new \PDO("mysql:host=$host", $userDB, $pass);
+        // $pdo = new \PDO("mysql:host=$host, $userDB, $pass);
+        $pdo = new PDO("mysql:host=$host;dbname=$database", $userDB, $password);
         $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         $sql = "CREATE DATABASE ". $prefixDatabase."cookingdatabase";
         $pdo->exec($sql);
